@@ -1,12 +1,12 @@
 ---
-title: 写个简单的androidannotations generate plugin
+title: androidannotations generate plugin
 date: 2016-11-21 13:31:56
 tags: plugin
 ---
 
 项目中使用androidannotations，但是androidstudio没有这个的生成插件。自己简单写了个，先看效果：
 
- ![b](/Users/yeqinfu/Documents/b.gif)
+ ![b](/imgs/b.gif)
 
 
 
@@ -60,6 +60,7 @@ github地址：https://github.com/yeqinfu/Plugin_QW_JSON_FORMAT
           public void actionPerformed(ActionEvent e) {
               makeFile();
           }
+  ```
 
 
       });
@@ -86,13 +87,13 @@ github地址：https://github.com/yeqinfu/Plugin_QW_JSON_FORMAT
 
   这个方法中
 
-  ```java
+```java
   String result = Utils_XmlPraser.elementFindId(root);
-  ```
+```
 
   这个是重点。
 
-  ```java
+```java
   public static String elementFindId(Element node){
       String result="";
       // 使用递归
@@ -113,7 +114,7 @@ github地址：https://github.com/yeqinfu/Plugin_QW_JSON_FORMAT
 
       return result;
   }
-  ```
+```
 
   递归每个xml节点然后把它拼起来。
 
