@@ -7,7 +7,7 @@ install:
 #before_script:
  # - npm install -g gulp
 script:
-  - hexo g
+  - hexo g -d
 after_script:
   - cd ./public
   - git init
