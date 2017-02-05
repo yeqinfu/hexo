@@ -22,4 +22,4 @@ branches:
     - master
 env:
  global:
-   - GH_REF: github.com/yeqinfu/hexo.git
+   - GH_REF: github.com/yeqinfu/yeqinfu.github.io.git
