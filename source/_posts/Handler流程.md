@@ -6,4 +6,4 @@ tags: 杭电
 
 Handler，Looper，MessageQueue，Message相关图
 
-<img src="/imgs/HandlerLooperMessageQueue.jpg"   alt="Handler流程图" align=center />
+<img src="/imgs/HandlerLooperMessageQueue.png"   alt="Handler流程图" align=center />
