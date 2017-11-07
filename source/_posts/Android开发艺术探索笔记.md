@@ -82,6 +82,112 @@ FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
 
 
 
+进程通信方式，intent bundle，文件共享，sp，Messenger，aidl，contentprovider,socket
+
+
+
+#### view体系
+
+view在平移过程中，top和left表示的是原始左上角的位置信息，其值并不会发生改变，此时改变的事x，y，translationX，translationY这四个参数。
+
+
+
+TouchSlop是系统所能识别的呗认为是滑动的最小距离。和设备有关可以通过
+
+```java
+ViewConfiguration.get(getContext().getScaledTouchSlop());
+```
+
+##### VelocityTracker,GestureDetector,Scroller
+
+VelocityTracker。速度追踪，用户追踪手指在滑动过程中的速度。包括水平和竖直方向的速度。
+
+```java
+ @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        VelocityTracker velocityTracker=VelocityTracker.obtain();
+        velocityTracker.addMovement(event);
+        velocityTracker.computeCurrentVelocity(1000);
+        float xVelocity=velocityTracker.getXVelocity();
+        float yVelocity=velocityTracker.getYVelocity();
+        Log.d(TAG,"--------"+xVelocity+"======"+yVelocity+"=======");
+        return super.onTouchEvent(event);
+    }
+```
+
+
+
+Scroller。View内部mScrollX,mScrollY的改变规则，这两个属性可以通过它们的get方法分别获得。在滑动过程中，mScrollX的值中式等于View左边缘和View内容左边在水平方向的距离。而mScrollY的值中式等于View的上边缘和View的内容上边缘的距离。View的边缘是指View的位置，由四个点组成。而View的内容边缘是指View中的内容的边缘。scrollTo，scrollBy只能改变View的内容位置，而不能改变View在布局中的位置。当View左边缘在view的内容左边缘的右边的时候，mScrollX为正值。反之负值。Y类似。
+
+如果从左向右滑动mScrollX负值
+
+（疑问?那么view的点击事件呢？点击事件还是在原来位置）
+
+###### 使用动画
+
+当用动画移动view的时候，点击事件呢？
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+    <translate
+        android:duration="3000"
+        android:fromYDelta="-100%"
+        android:toYDelta="200%" />
+</set>
+```
+
+转场动画，接收事件的位置还是在原来的地方。并没有真正移动view的位置。当动画设置为fillafter之后，动画不会变回原来位子，但是动画view的点击事件不见了。。
+
+```java
+   ObjectAnimator.ofFloat(tv_tt,"translationY",0,1000).setDuration(2000).start();
+```
+
+属性动画，接收事件的位置会改变。
+
+
+
+#### View事件分发
+
+伪代码
+
+```java
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean consume=false;
+        if (onInterceptTouchEvent(ev)){
+            consume=onTouchEvent(ev);
+        }else{
+            consume=child.dispathTouchEvent(ev);
+        }
+        return consume;
+    }
+```
+
+
+
+一个view如果设置了onTouchListener，并且onTouch返回true消耗了事件，这个view的onTouchEvent将不会被回调。说明优先级高。在onTouchEvent中有判断如果设置了onClickListener，onclick回调。说明onclick优先级最低。
+
+当一个点击事件产生后，它的传递过程遵循如下顺序，activity->window->view。如果一个view的ontouchevent返回false，那么它的父容器的ontouchevent将会被调用。如果所有元素的都不处理这个事件。那么这个事件将会最终传递给activity处理，activity的onTouchEvent将会被调用。
+
++ 同一个事件是指从手指接触屏幕的那一刻起，到手指离开屏幕的那一刻结束。在这个过程中所产生的一系列事件，这个事件序列以down事件开始，中间含有数量不定的move事件。最终以up事件结束。
++ 正常情况下，一个事件序列只能被一个view拦截且小号，因为一旦一个元素拦截了某次事件，那么同一个事件序列内的所有事件都会直接交给它处理。
++ 某个view一旦决定拦截。那么这个事件序列都能只能给它处理，并且它的onInterceptTouchEvent不会再被调用。不需要询问是否要拦截。
++ 某个view一旦开始处理事件，如果它不消耗down事件，那么同一个事件序列中的其他事件都不会再交给它处理。并且事件将重新交由它的父元素去处理，即父元素的onTouchEvent事件会被调用。意思就是一旦交给一个view处理。那么它就必须消耗掉。
++ 如果view不消耗除了down以外的其他事件，那么这个点击事件会消失，此时父元素的onTouchEvent并不会被调用。并且当前view可以持续受到后续事件。最终这些消失的事件会传递给activity处理。
++ viewGroup默认不会拦截任何事件
++ view没有onInterceptTouchEvent
++ view的onTouchEvent默认都会消耗事件，除非它是不可点击的。clickable和longclickable都为false。
++ view的enable属性不影响onTouchEvent的默认返回值。
++ onclick事件发生的前提是当前view是可以点击的。并且它接受了down和up的事件
+
+
+
+
+
+
+
 
 
 
