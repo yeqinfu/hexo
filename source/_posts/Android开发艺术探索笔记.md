@@ -185,10 +185,26 @@ Scroller。View内部mScrollX,mScrollY的改变规则，这两个属性可以通
 
 
 
+#### View工作原理
 
 
 
+setWillNotDraw，默认view没有启动这个标记优化，viewgroup有启动。viewGroup本身不具备绘制功能。如果需要draw，则要关闭这个标记
 
 
 
+#### RemoteViews
 
+remoteViews提供了基础操作，用于跨进程更新它的界面。通知栏和小组件。
+
+#### Drawable
+
+分类BitmapDrawable，ShapeDrawable，LayerDrawable,StateListDrawable等。
+
+#### 动画
+
+#### windows
+
+dialog的window创建和activity创建过程类似，但是，创建dialog需要传入activity的上下文，如果传入application的上下文会报错。没有应用的token。应用的token一般只有activity有，另外，心痛的windows可以不需要token，因此，如果指定为系统的类型就可以不用token。要声明系统windows权限。
+
+Toast也是基于window实现。
