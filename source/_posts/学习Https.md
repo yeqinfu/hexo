@@ -1,6 +1,6 @@
 ---
 title: 学习https
-date: 2017-11-21 09:00:58
+date: 2017-11-30 09:00:58
 tags: code
 ---
 
@@ -92,11 +92,93 @@ ssl在应用层和tcp层之间。通过加入ssl头部再传到下一层。
 
 ## 服务端Tomcat配置
 
+server.xml是tomcat的主配置文件，Server是顶级组件，代表一个Tomcat实例，可以包含多个Services其中每个Service都有自己的Engines和Connectors
 
 
 
+```
+<Connector protocol="HTTP/1.1" SSLEnabled="true" maxThreads="150"
+			scheme="https" secure="true" clientAuth="false" sslProtocol="TLS"
 
-服务端，android客户端https配置待续~~
+			keystoreFile="E:\dev_soft\apache-tomcat-9.0.0.M20\casserver.keystore"
+
+			keystorePass="cas123" port="8443" />
+```
+
+把上面的代码贴入Services标签
+
+
+
+配置了https之后，我们希望客户端或者其他都智能通过https来请求我们的服务，就必须禁用不安全的https请求方式，或者使http重定向为https。
+
+解决方法：
+
+在tomcat\conf\web.xml中的</welcome-file-list>后面加上这样一段：
+
+```
+<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>securedapp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint> 
+```
+
+这样访问https://localhost:8443/ 进入tomcat主页说明成功了。
+
+在我的项目中，tomcat的启动是根据以下代码启动的
+
+```java
+package tomcat;
+
+import org.apache.catalina.connector.Connector;
+import org.apache.catalina.startup.Tomcat;
+
+/**
+ * The Class StartMainTomcat.
+ * 
+ * @author nibili
+ */
+public class StartTomcat1 {
+
+	/** The Constant PORT. */
+	public static final int PORT = 80;
+
+	/** The Constant CONTEXT. */
+	public static final String CONTEXT = "web_api";
+
+	/**
+	 * The main method.
+	 * 
+	 * @param args
+	 *            the arguments
+	 * @throws Exception
+	 *             the exception
+	 */
+	public static void main(String[] args) throws Exception {
+		System.setProperty("catalina.base", System.getProperty("user.dir") + "/target");
+		System.setProperty("log.sql.port", "80");
+		Tomcat tomcat = new Tomcat();
+		tomcat.setBaseDir(System.getProperty("catalina.base"));
+		tomcat.setPort(PORT);
+		tomcat.addWebapp(CONTEXT, System.getProperty("user.dir") + "/src/main/webapp");
+		Connector connector = tomcat.getConnector();
+		connector.setURIEncoding("UTF-8");
+		tomcat.start();
+		System.out.println("Hit Enter in console to stop server");
+		if (System.in.read() != 0) {
+			tomcat.stop();
+			System.out.println("Server stopped");
+		}
+	}
+}
+
+```
+
+也就是说，server.xml，web.xml的配置不适用这个启动方式。
 
 
 
