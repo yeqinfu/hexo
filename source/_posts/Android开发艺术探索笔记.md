@@ -10,7 +10,17 @@ tags: note
 
 从整个生命周期来说，onCreate和onDestroy是配对的，分别标志着Activity的创建和销毁，并且只可能有一次调用。从Activity是否可见来说，onStart和onStop是配对的，随着用户的操作或者设备屏幕的点亮和熄灭，这两个方法可能被调用很多次；从Activity是否在前台来说，onResume和onPause是配对的，随着用户操作或者设备屏幕的额点亮和熄灭，这两个方法肯可能被调用多次。
 
-
+> 作者说设置activity为透明主题的时候，onStop不会回调，那么启动的时候onStart也应该不会回调。至今还不知道用什么主题能让Activity不回调这个方法。
+>
+> 1. @android:style/Theme.Translucent  
+>
+> 2. @android:style/Theme.Translucent.NoTitleBar  
+>
+> 3. @android:style/Theme.Translucent.NoTitleBar.Fullscreen
+>
+>    这几个不行
+>
+>    ​
 
 #### 横竖屏切换
 
@@ -22,7 +32,7 @@ tags: note
 
 #### 启动模式
 
-activity A启动了activity B，这时候B会进入A的任务栈。而有的时候我们启动activity会用ApplicationContext来启动一个activity，会报错。要加上FLAG_ACTIVITY_NEW_TASK。因为application并没有什么任务栈。
+activity A启动了activity B，这时候B会进入A的任务栈。而有的时候我们启动activity会用ApplicationContext来启动一个activity，会报错。要加上FLAG_ACTIVITY_NEW_TASK。因为application并没有什么任务栈。这时候的B其实是一个singleTask模式
 
 
 
@@ -30,7 +40,7 @@ singleTop模式下，如果新的activity已经卫浴任务栈的栈顶，那么
 
 
 
-TaskAffinity属性主要和singleTask启动模式或者allowTaskReparenting属性配对使用。
+TaskAffinity属性主要和singleTask启动模式或者allowTaskReparenting属性配对使用。allowTaskReparenting为true的时候，应用A启动了另一个应用B的某个Activity后，此Activity会直接从应用A的任务栈转移到应用B的任务栈，
 
 
 
