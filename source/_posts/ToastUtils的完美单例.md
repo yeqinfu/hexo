@@ -158,6 +158,7 @@ public class ToastUtilAdapter {
             public void onActivityDestroyed(Activity activity) {
                 if (activity==mContext){
                     mContext=null;
+                     toast=null;
                 }
 
             }
@@ -171,7 +172,6 @@ public class ToastUtilAdapter {
 	}
 
 }
-
 ```
 
 如代码所示，mContext对象一直是作为Toast的上下文对象，但是加了一个ActivityLifecycleCallbacks，当对象呗销毁的时候，及时释放mContext这个强引用。
