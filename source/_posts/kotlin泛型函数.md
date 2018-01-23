@@ -122,7 +122,7 @@ apply被定义为T的拓展函数，接受一个扩展函数，返回T本身。�
 
 ```kotlin
    response?.safeRun {
-                        tv_totalKwh?.text=it.message.analysisCateSum
+                        tv_totalKwh.text=it.message.analysisCateSum
                        
                     }
 ```
