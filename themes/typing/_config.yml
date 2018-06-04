@@ -22,13 +22,9 @@ fb_app_id:
 
 
 # Profile
-<<<<<<< HEAD
 nickname: 无肉不欢，老树叶
 description: 个人博客，学习记录.
-=======
-nickname: Vencent
-description: Whatever is worth doing is worth doing well.
->>>>>>> parent of ac873cd... modified something
+
 links:
   Blog: /archives
   GitHub: https://github.com/yeqinfu
