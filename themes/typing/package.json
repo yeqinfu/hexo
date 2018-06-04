@@ -2,7 +2,7 @@
   "name": "hexo-theme-typing",
   "description": "a pure and fresh Hexo theme.",
   "version": "1.0.1",
-  "main": "archive.js",
+  "main": "index.js",
   "scripts": {
     "test": "test"
   },
