@@ -3,7 +3,7 @@ language: en
 
 # Header
 menu:
-  Home: /
+  Home: /archives
   Archives: /archives
   About: /about
 rss: /atom.xml
@@ -23,7 +23,7 @@ fb_app_id:
 
 # Profile
 nickname: Vencent
-description: Whatever is worth doing is worth doing well.
+description: 个人博客，学习记录.
 links:
   Blog: /archives
   GitHub: https://github.com/yeqinfu
