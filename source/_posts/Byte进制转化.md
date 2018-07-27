@@ -1,5 +1,5 @@
 ---
-title: 进制转化Integer.toBinaryString(i)
+title: Byte进制转化
 date: 2018-07-23 09:00:58
 tags: code
 ---
