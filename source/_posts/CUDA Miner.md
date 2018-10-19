@@ -35,7 +35,7 @@ sudo apt-get update && sudo apt-get install cuda
 export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
 ```
 
-中间的``` cuda-9.2``` 以你下载的驱动文件型号为转移。可以把此命令加入到开机启动的bashrc文件中。
+中间的cuda-9.2以你下载的驱动文件型号为转移。可以把此命令加入到开机启动的bashrc文件中。
 
 ### 编译epoch
 
