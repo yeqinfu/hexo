@@ -23,7 +23,13 @@ sudo apt-key add /var/cuda-repo-9-2-local/7fa2af80.pub
 sudo apt-get update && sudo apt-get install cuda
 ```
 
-过程可能有点久，安装完成之后可以在```usr/local/``` ，目录下看到安装的文件，把此文件下的可执行文件夹加入到环境变量中。此步骤主要是为了安装目录下`` nvcc`` 这个可执行脚本在编译cuda30需要用到。
+过程可能有点久，安装完成之后可以在
+
+``` 
+/usr/local/
+```
+
+目录下看到安装的文件，把此文件下的可执行文件夹加入到环境变量中。此步骤主要是为了安装目录下`` nvcc`` 这个可执行脚本在编译cuda30需要用到。
 
 ```
 export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
