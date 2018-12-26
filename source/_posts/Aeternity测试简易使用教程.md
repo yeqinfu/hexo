@@ -10,55 +10,35 @@ Aeternity测试网络已经上线许久，这里简单介绍如何在测试网�
 
 Aeternity 创建账号可以使用Python SDK，JS SDK或者Go SDK。这里举例Python SDK，下载SDK后执行：
 
-```
->>python aecli
-Commands:
-  chain     Interact with the blockchain
-  config    Print the client configuration
-  contract  Compile contracts
-  inspect   Get information on transactions, blocks,...
-  oracle    Interact with oracles
-  wallet    Handle wallet operations1
-
-```
+![image](http://ws3.sinaimg.cn/large/c1b251b3gy1fwotdkp96qj20su0qm77u.jpg)
 
 可以看到sdk包含的内容有公链数据查询，合约编译，账户区块查询，预言机，钱包创建等相关内容。我们选择钱包创建，执行：
 
-```
->>python aecli wallet "E://ae//mykey" create
-Wallet created
-Wallet address________________ ak$2F9bmsy5FRgbs33dMGyStvxyBvoMfpVspmSCaAT7jAog1TDyam
-Wallet path___________________ E:\ae\mykey
+![image](http://ws4.sinaimg.cn/large/c1b251b3gy1fwotgn0oidj217m076myj.jpg)
 
-```
-
-![image](http://ws2.sinaimg.cn/large/c1b251b3gy1fuygcjgz93j20ib01ijra.jpg)
-
-在wallet后面加上保存密钥文件的路径，加上create命令，输入密码后可以得到如上结果。
-
-> 生成的账户其实是一个公钥私钥对，执行以上命令还会弹出输入密码，此密码是对生成的密钥进行加密，所以如果你用编辑器打开mykey只会看到乱码，每次转账的时候都需要输入密码，对私钥解密。
+在account后面加上保存密钥文件的路径，加上create命令，输入密码后可以得到如上结果。
 
 ### 对生成的账户进行充值
 
 生成的账户其实是不会在链上有记录的，只有执行过交易才会有记录，所以如果发出转账会提示找不到此账户，因为此账户的余额为0.[进入测试网充值](https://faucet.aepps.com/)后，如图所示
 
-![image](http://ws1.sinaimg.cn/large/c1b251b3gy1fuyghtl63sj212t0dhgm8.jpg)
+![image](http://wx2.sinaimg.cn/large/c1b251b3gy1fwotlmm4zcj222k0qgq74.jpg)
 
-默认充值是250AE，充值后就会产生交易记录，可以看到这个交易ID，点击跳转到区块链交易浏览器详情，不过似乎还没开发好，看不到详情。我们使用Python SDK查看交易详情
+默认充值是5000AE，充值后就会产生交易记录，可以看到这个交易ID，点击跳转到区块链交易浏览器详情，不过似乎还没开发好，看不到详情。我们使用Python SDK查看交易详情,第一次查询是未充值显示找不到账户，第二次是充值后可以查询到相关余额。
 
-![image](http://wx2.sinaimg.cn/large/c1b251b3gy1fuygq4esmfj215f0ak3zw.jpg)
+![image](http://ws3.sinaimg.cn/large/c1b251b3gy1fwotnpgoozj21bo0eywhl.jpg)
 
 ### 测试网转账
 
-我们的账户已经可以看到有余额是250AE了，下面对此账户进行转账
+我们的账户已经可以看到有余额是5000AE了，下面对此账户进行转账。
 
-![image](http://ws3.sinaimg.cn/large/c1b251b3gy1fuygt1x9mnj217n09smy7.jpg)
+![image](http://ws4.sinaimg.cn/large/c1b251b3gy1fwots7wfc7j21qk08w0vj.jpg)
 
-忽略掉我的打印输入哈，指定了我们的密钥路径后，接上spend命令，转账到哪个账户的地址，转账余额。会提示输入密码，此密码就是解密我们密钥的密码输出上图，我们再看一下我们的账户余额
+指定了我们的密钥路径后，接上spend命令，转账到哪个账户的地址，转账余额。会提示输入密码，此密码就是解密我们密钥的密码输出上图，我们再看一下两个账户的账户余额
 
-![image](http://wx4.sinaimg.cn/large/c1b251b3gy1fuyh00d9b6j212k03h0sv.jpg)
+![image](http://ws4.sinaimg.cn/large/c1b251b3gy1fwottyrwghj21cy0degoc.jpg)
 
-经过我多次转账测试，发现每次转账测试网的手续费收取1AE，这个应该会调整
+经过我多次转账测试，发现每次转账测试网的手续费收取1AE，这个应该会调整。
 
 ### 智能合约编译
 
