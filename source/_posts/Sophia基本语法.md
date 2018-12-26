@@ -12,9 +12,9 @@ tags: code
 
 * 每个合约实例都存在于公链或者状态通道中
 
-* 合约可以通过 ``` public ``` 关键字声明```API```供外部调用，外部合约就可以调用它，
+* 合约可以通过 public 关键字声明API供外部调用，外部合约就可以调用它，
 
-* 合约可以定义本地状态，这个状态必须在合约发布的时候被初始化，在一个叫 ```init``` 的初始化函数中，如下
+* 合约可以定义本地状态，这个状态必须在合约发布的时候被初始化，在一个叫 init 的初始化函数中，如下
 
   ```
   type state = { value : int }
@@ -22,9 +22,9 @@ tags: code
   stateful function tick() = put(state{ value = state.value + 1 })
   ```
 
-  声明本地状态的变量必须被初始化，并且要更改状态的函数必须声明 ```stateful``` 关键字。
+  声明本地状态的变量必须被初始化，并且要更改状态的函数必须声明 stateful 关键字。
 
-* 合约可以继承另一个合约（可以多继承？），继承后，父类合约的 ```public ``` 方法就会被包含到子类合约中，本地状态也一并继承，但是父类合约的私有方法不能被子类合约调用。
+* 合约可以继承另一个合约（可以多继承？），继承后，父类合约的 public 方法就会被包含到子类合约中，本地状态也一并继承，但是父类合约的私有方法不能被子类合约调用。
 
 
 #### 合约基本变量
@@ -46,7 +46,7 @@ let message = "Bye" // message has value "Bye"
 message = "Hola" // Error
 ```
 
-必须要加上 ``` let ``` 才能绑定新的值。这里还有一个，如下
+必须要加上 let  才能绑定新的值。这里还有一个，如下
 
 ```
 function main(x : int) = 
@@ -55,13 +55,13 @@ function main(x : int) =
     score
 ```
 
-``` score ``` 这个变量通过``` let ``` 赋值，竟然可以从 ``` int ``` 类型变成 ``` string ``` 类型。
+score  这个变量通过 let 赋值，竟然可以从 int 类型变成 string 类型。
 
 ```
 let score: int = 10
 ```
 
-变量赋值的时候可以指定为``` int ``` 类型
+变量赋值的时候可以指定为 int 类型
 
 ```
  function main(x : int) = 
@@ -77,7 +77,7 @@ let myInt = (5: int) + (10: int)
 let add = (x: int, y: int) : int => x + y  // this is a function definition 
 ```
 
-如上，``` add ``` 这个变量，通过这个匿名函数赋值的。但是还不知道这个操作的意义在那里。
+如上， add 这个变量，通过这个匿名函数赋值的。但是还不知道这个操作的意义在那里。
 
 
 
@@ -88,7 +88,7 @@ type intCoordinates = (int, int, int);
 let buddy: intCoordinates = (10, 20, 20);
 ```
 
-一个变量的类型除了是基本类型，还可以是多类型，这边自定义的类型，名字叫 ``` intCoordinates ``` 它是三个 ```int ``` 类型组成的，所以``` buddy ``` 在赋值的时候必须传三个整形。多类型还可以缩写
+一个变量的类型除了是基本类型，还可以是多类型，这边自定义的类型，名字叫 intCoordinates 它是三个int 类型组成的，所以 buddy 在赋值的时候必须传三个整形。多类型还可以缩写
 
 ```
 type coordinates('a) = ('a, 'a, 'a)
@@ -110,7 +110,7 @@ let buddy: coordinates(int) = (10,20,30)
 
 #### List类型
 
-``` list``` 类型里面应该只能是同一种类型，比如
+ list 类型里面应该只能是同一种类型，比如
 
 ```
 function main(x : int) = 
@@ -120,7 +120,7 @@ function main(x : int) =
     1
 ```
 
-往```list``` 添加元素
+往list 添加元素
 
 ```
  function main(x : int) = 
@@ -130,11 +130,11 @@ function main(x : int) =
     1
 ```
 
-但是似乎不能通过这个连接符去连接两个``` list```
+但是似乎不能通过这个连接符去连接两个list
 
 #### Tuple 类型
 
-如果需要在集合放置不同类型的元素，可以用``` tuple ``` 
+如果需要在集合放置不同类型的元素，可以用tuple 
 
 ```
 let ageAndName = (24, "Lil' Language")
@@ -209,7 +209,7 @@ contract Identity =
     hah[a]
 ```
 
-如上例子，声明了一个type为accounts的类型，取值的时候直接``` all["ddd"]``` 取值就可以。
+如上例子，声明了一个type为accounts的类型，取值的时候直接 all["ddd"] 取值就可以。
 
 
 
@@ -234,9 +234,9 @@ contract Identity =
       sold         = false }
 ```
 
-当我们声明了这个state变量的时候，还必须实现```init```函数，不然会报错，提示需要```init```赋值这个state
+当我们声明了这个state变量的时候，还必须实现init函数，不然会报错，提示需要init赋值这个state
 
-当我们队state这个变量进行了一定的定义和初始化之后，在合约的全局中就可以对state这个record类型的变量进行一些隐式赋值，当我们想更改state的内容，那么相关的方法必须声明``` stateful ``` 关键字
+当我们队state这个变量进行了一定的定义和初始化之后，在合约的全局中就可以对state这个record类型的变量进行一些隐式赋值，当我们想更改state的内容，那么相关的方法必须声明 stateful 关键字
 
 ```
 contract Identity =
@@ -275,7 +275,7 @@ contract Identity =
     state.amount
 ```
 
-如上代码，我们初始化amount为100，两个函数都对state进行赋值，但是一个有```stateful```的声明，这里对两个函数进行调用，发现都可以改state的值，我也不知道为什么，我觉得````main2```应该编译期就报错才对。
+如上代码，我们初始化amount为100，两个函数都对state进行赋值，但是一个有stateful的声明，这里对两个函数进行调用，发现都可以改state的值，我也不知道为什么，我觉得main2应该编译期就报错才对。
 
 #### 条件语句
 
@@ -321,7 +321,7 @@ abort(reason : string) : 'a
 abort("balance not sufficient")
 ```
 
-直接输入异常内容后抛出就可以了，异常函数``` 'a``` 应该是一个类似于泛型的意思
+直接输入异常内容后抛出就可以了，异常函数a 应该是一个类似于泛型的意思
 
 
 
