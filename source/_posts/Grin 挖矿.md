@@ -173,7 +173,9 @@ grin —floonet wellet info
 
 
 
+挖到了
 
+![image](https://wx3.sinaimg.cn/large/c1b251b3gy1fz2qci9uuzj20gw05tt91.jpg)
 
 
 
