@@ -6,7 +6,7 @@ tags: android
 
 先上效果图
 
-<img src="https://wx4.sinaimg.cn/large/c1b251b3gy1g3f6vh94cqj20ct0m6ju1.jpg" alt="GMW}Z~6ZCYV6T}@~[JLEAMM" width="461" data-width="461" data-height="798">
+![11](https://ws4.sinaimg.cn/large/c1b251b3gy1g3f8cm0zt6j20ct0m6ju1.jpg)
 
 我不知道这个有什么用，就是想画一画。本来想画像一颗海草海草，然后随风飘摇。
 
