@@ -35,6 +35,6 @@ jobs:
       - name: Deploy
         uses: yeqinfu
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.token }}
           REPOSITORY_NAME: yeqinfu/yeqinfu.github.io
           BRANCH: master
