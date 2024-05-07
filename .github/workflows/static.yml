@@ -28,13 +28,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-       # 1、生成静态文件
-      - name: Build
-        run: npm install && npm run build
-      # 2、部署到 GitHub Pages
-      - name: Deploy
-        uses: yeqinfu/hexo@master
+      - name: Setup node
+      # 设置 node.js 环境
+        uses: actions/setup-node@v1
         with:
-          ACCESS_TOKEN: ${{ secrets.token }}
-          REPOSITORY_NAME: yeqinfu/yeqinfu.github.io
-          BRANCH: master
+          node-version: '12.x'  
+      - name: Install hexo dependencies
+      # 下载 hexo-cli 脚手架及相关安装包
+        run: |
+          npm install -g hexo-cli
+          npm install
+      - name: Generate files
+      # 编译 markdown 文件
+        run: |
+          hexo clean
+          hexo generate
+      - name: Deploy hexo blog
+        env: 
+          # Github 仓库
+          GITHUB_REPO: github.com/yeqinfu/yeqinfu.github.io
+        run: |
+          cd ./public && git init && git add .
+          git config user.name "yeqinfu"
+          git config user.email "990761790@qq.com"
+          git add .
+          git commit -m "GitHub Actions Auto Builder at $(date +'%Y-%m-%d %H:%M:%S')"
+          git push --force --quiet "https://${{ secrets.token }}@$GITHUB_REPO" master:master
