@@ -32,7 +32,7 @@ jobs:
       # 设置 node.js 环境
         uses: actions/setup-node@v1
         with:
-          node-version: '20.11.0'  
+          node-version: '12.x'  
       - name: Install hexo dependencies
       # 下载 hexo-cli 脚手架及相关安装包
         run: |
